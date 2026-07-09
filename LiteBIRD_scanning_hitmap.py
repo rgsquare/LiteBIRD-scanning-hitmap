@@ -33,14 +33,13 @@ TL1 = 15603847.5;   TL2 = 15886593.4                    # Lissajous precession p
 psi = -0.8368                                           # Lissajous precession phase (seconds) 
 omegaL1 = 2*pi/TL1; omegaL2 = 2*pi/TL2                  # Lissajoux angular velocities (rad/s)
 ##############################
-# Source parameters
-# {"source": distance from the sun in meters}
+# Source parameters: {"source": distance from the sun in meters}
 source = {"mercury" : 59.853*1e9 , "venus": 107.59*1e9, "mars" : 250.66*1e9, "jupiter" : 754.05*1e9, "saturn" : 1486.7*1e9, "uranus" : 2953.7*1e9}
 source_name = source.keys()
 ##############################
 # Degree to radians transformation
-alphar =  alpha * d2r                                   # rad
-betar =  beta * d2r                                     # rad
+alphar = alpha * d2r                                   # rad
+betar = beta * d2r                                     # rad
 #############################
 # Vectors declaration 
 maphits = np.zeros(npix)                                                                                                                              
@@ -53,7 +52,7 @@ dt = t2-t1
 time = np.arange(94608000)                               # Time score
 a = 10000;                                               # Counter for visualization
 ############################
-# Source selection
+# Source and Lissajous orbit selection
 print("Select a source for the generation of the hit-map among these: mercury, venus, mars, jupiter, saturn and uranus")
 selected_source = input("Which source do you want to simulate? ")
 source_name = source.keys()
@@ -62,6 +61,7 @@ for i in source_name:
      d_S = source[selected_source] 
 print(f"The selected source is {selected_source}" )
 Lissajous = input("Do you want to implement the Lissajous orbit? (yes or not)")
+####################################################################################
 print(f"The generation of the hit-map for {selected_source} has started! ")
 ####################################################################################
 ####################################################################################
@@ -80,7 +80,6 @@ for t in time:
     distance = ICRS(icrs_pos).distance
     coord_icrs = SkyCoord(ra, dec, distance, frame='icrs')
     ecl_vec = coord_icrs.transform_to(BarycentricMeanEcliptic) 
-    #ecl_vec = (ICRS(icrs_pos).transform_to(BarycentricMeanEcliptic))   #.cartesian.get_xyz().value) to obtain cartesian coord.
     lat = theta = ecl_vec.lat.value 
     lon = phi = ecl_vec.lon.value
     dist = ecl_vec.distance.value
@@ -111,7 +110,7 @@ for t in time:
     V = np.array([[-d_L2S+x2],[y2],[z2]]);                           # Jupiter position vector with respect to L2
     d_L2 = np.linalg.norm(V)/(150.0*1e9)                             # Jupiter distance from L2 in UA
     ######################################################################## 
-    # Lissajoux orbit
+    # Lissajoux orbit selection
     VL = np.array([[0],[DL1*np.cos(omegaL1*t)],[DL2*np.sin((omegaL2*t) + psi)]])
     if (Lissajous == "yes"):
        Vfin = V - VL
@@ -137,6 +136,7 @@ for t in time:
     ########################################################################
     maphits[pixel] = maphits[pixel]+1;                                  # Hits per pixel vector
     ########################################################################
+    # Counter
     if(t == a):
         print(t)
         a = a+10000
