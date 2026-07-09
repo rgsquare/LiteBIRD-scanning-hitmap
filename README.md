@@ -1,3 +1,3 @@
 # LiteBIRD scanning hitmap 
 This repository contain the python source code to simulate the LiteBIRD scanning strategy and to generate the hit-map for the calibration of the LiteBIRD detectors. The default parameters for the scanning are those selected from the LiteBIRD collaboration at the present date. The time sampling is 1 second. It is possible to select the source for the calibration among mercury, venus, mars, jupiter, saturn and uranus, and to implement the Lissajous orbit. The default parameters for the Lissajous orbit are the same selected for the WMAP mission (at the moment the LiteBIRD collaboration has not selected these parameters).
-You only need python 3 to run the code. 
+You only need python 3 to run the code.  
