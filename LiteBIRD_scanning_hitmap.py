@@ -3,7 +3,7 @@
 # LiteBIRD SCANNING HITMAP
 # Raul Gonzalez Gonzalez 7/4/26
 ############################################################
-############################################################
+############################################################ 
 import numpy as np
 import healpy as hp
 import matplotlib.pyplot as plt
